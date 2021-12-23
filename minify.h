@@ -1,3 +1,6 @@
+/****************salma sherif's part *****************/
+
+
 #ifndef MINIFY_H
 #define MINIFY_H
 
