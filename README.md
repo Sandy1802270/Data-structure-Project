@@ -5,4 +5,4 @@ XML Editor using QT creator to make functionalities on XML files: Format,
                   Correct errors,
                   Convert to JSON, 
                   Compress file, 
-                  Decompress file,
+                  Decompress file.
