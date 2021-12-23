@@ -1,6 +1,110 @@
 #include "xmltojson.h"
 
+void tree(XML_tree* tree, std::ifstream& input) {
 
+    int Node_level = 1;
+    std::string line;
+
+    bool begin_tag = false;
+
+    Node* newNode = nullptr;
+    std::stack<Node*> stk;
+
+    while (getline(input, line)) {
+
+        if (line[0] == '<' && (line[1] == '!' || line[1] == '?')) {
+            continue;
+        }
+        else if (line[0] == '<' && line[1] != '/')
+        {
+            int end;
+            for (int i = 1; i < line.length(); i++)
+            {
+                end = i;
+                if (line[i] == '\n') {
+                    break;
+                }
+            }
+            std::string tag_Name = line.substr(1, end - 1);
+            newNode = new Node(tag_Name);
+            if (stk.size() == 0)
+            {
+                tree->add_root(newNode);
+                tree->add_level(newNode,Node_level);
+                Node_level++;
+            }
+            else {
+                tree->add_child(stk.top(), newNode);
+                tree->add_level(newNode, Node_level);
+                Node_level++;
+            }
+            stk.push(newNode);
+        }
+        else if (line[0] == '<' && line[1] == '/')
+        {
+            //string top = stk.top()->Tag_Name;
+            stk.pop();
+            Node_level--;
+            //cout << "pop" << top << endl;
+        }
+        else {
+            //string txt="";
+            int end = 0;
+            for (int i = 0; i < line.length(); i++)
+            {
+                end = i;
+                //txt += txt;
+                if (line[i] == '\n') {
+                    break;
+                }
+            }
+            std::string data = line.substr(0, end+1);
+            tree->add_data(newNode, data);
+            //Node_level++;
+            //cout << tree->get_data(newNode)<<endl;
+        }
+
+    }
+
+}
+
+
+
+
+
+
+//true if this node is part of a list
+bool Node_list(Node* node) {
+    bool equal=true;
+    if (node->children.size() == 1)
+    {
+        return false;
+    }
+    if (node->children.size() != 0)
+    {
+        for (int i = 0; i < node->children.size() - 1; i++) {
+            if (node->children[i]->Tag_Name != node->children[i + 1]->Tag_Name) {
+                equal = false;
+            }
+        }
+        return equal;
+    }
+    else {
+        return false;
+    }
+
+
+}
+
+std::string output5;
+
+//std::ofstream output("json.txt");
+void indentation(int level)
+{
+    for (int i = 0; i < level; i++) {
+        output5 += "    ";
+    }
+}
 
 
 
