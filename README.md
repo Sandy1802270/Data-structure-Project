@@ -1,6 +1,5 @@
 # Data-structure-Project
-XML Editor using QT creator to make functionalities on XML files
-Functionalities : Format,
+XML Editor using QT creator to make functionalities on XML files: Format,
                   Minify,
                   Check consistency,
                   Correct errors,
