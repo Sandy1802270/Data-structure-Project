@@ -1,6 +1,7 @@
 #ifndef XMLTREE_H
 #define XMLTREE_H
 #include <bits/stdc++.h>
+
 class Node {
 public:
     std::string Tag_Name;
@@ -8,7 +9,7 @@ public:
     std::vector<Node*> children;
     Node* parent;
     int level;
-    int index=0;
+    int index = 0;
     bool isList;
 
 
@@ -59,13 +60,17 @@ public:
         n->Tag_value = data;
     }
 
-    void add_level(Node* n,int level1)
+    void add_level(Node* n, int level1)
     {
         n->level = level1;
     }
 
     std::string get_data(Node* n) {
         return n->Tag_value;
+    }
+
+    std::string get_TagName(Node* n) {
+        return n->Tag_Name;
     }
 
 
@@ -87,5 +92,6 @@ public:
     }
 
 };
+
 
 #endif // XMLTREE_H
